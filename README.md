@@ -1,6 +1,6 @@
-# ☁️ AWS S3 → Snowflake ELT Pipeline
+# AWS S3 → Snowflake ELT Pipeline
 
-## 📌 Project Overview
+## Project Overview
 
 Although the original technical assessment only required building a **Tableau dashboard** from three Excel worksheets, this project was expanded into a complete **cloud-based ELT pipeline** to demonstrate additional capabilities in:
 
@@ -18,7 +18,7 @@ This approach simulates a real-world analytics environment where raw business da
 
 ---
 
-# 🏗️ Pipeline Architecture
+# Pipeline Architecture
 
 ```text
                   📄 Excel Workbook
@@ -48,7 +48,7 @@ This approach simulates a real-world analytics environment where raw business da
 
 ---
 
-# 🧰 Technologies Used
+# Technologies Used
 
 | Technology | Purpose |
 |------------|---------|
@@ -78,14 +78,14 @@ USE SCHEMA TABLEAU_SCH;
 
 Creating an isolated database and schema provides:
 
-✅ Better organization  
-✅ Separation between environments  
-✅ Easier maintenance  
-✅ Clear ownership of analytical objects  
+Better organization  
+Separation between environments  
+Easier maintenance  
+Clear ownership of analytical objects  
 
 ---
 
-# ☁️ Connecting Snowflake with Amazon S3
+# Connecting Snowflake with Amazon S3
 
 The original Excel workbook contained three business entities:
 
@@ -99,7 +99,7 @@ The S3 bucket acted as the **data landing zone**, where raw files were stored be
 
 ---
 
-## 📄 CSV File Format Configuration
+## CSV File Format Configuration
 
 A custom Snowflake file format was created to correctly interpret the incoming CSV files.
 
@@ -114,7 +114,7 @@ NULL_IF = ('NULL', '')
 EMPTY_FIELD_AS_NULL = TRUE;
 ```
 
-### ⚙️ Configuration Purpose
+### Configuration Purpose
 
 | Setting | Purpose |
 |---------|---------|
@@ -127,7 +127,7 @@ EMPTY_FIELD_AS_NULL = TRUE;
 
 ---
 
-# 🔐 AWS Storage Integration
+# AWS Storage Integration
 
 To securely connect Snowflake with Amazon S3, an external storage integration was created using an AWS IAM Role.
 
@@ -143,23 +143,9 @@ STORAGE_ALLOWED_LOCATIONS = (
 );
 ```
 
-## Why use Storage Integration?
-
-Instead of storing AWS credentials inside Snowflake:
-
-❌ No hardcoded access keys  
-❌ No exposed credentials  
-❌ No manual authentication process  
-
-The connection is handled through:
-
-✅ AWS IAM Role authentication  
-✅ Secure cloud-to-cloud communication  
-✅ Enterprise-style architecture  
-
 ---
 
-# 📦 External Stage Creation
+# External Stage Creation
 
 After configuring the Storage Integration, an External Stage was created.
 
@@ -188,7 +174,7 @@ Expected files:
 
 ---
 
-# 🗄️ RAW Data Layer
+# RAW Data Layer
 
 Following ELT best practices, the first Snowflake layer was designed as a **RAW ingestion layer**.
 
@@ -223,10 +209,10 @@ CREATE OR REPLACE TABLE PROJECTS_RAW (
 
 ### Advantages:
 
-✅ Preserves original source values  
-✅ Prevents ingestion failures due to unexpected formats  
-✅ Allows controlled transformations later  
-✅ Maintains historical traceability  
+Preserves original source values  
+Prevents ingestion failures due to unexpected formats  
+Allows controlled transformations later  
+Maintains historical traceability  
 
 This follows a common enterprise ELT pattern:
 
@@ -236,7 +222,7 @@ Raw Data First → Transform Later
 
 ---
 
-# 📥 Loading Data from Amazon S3
+# Loading Data from Amazon S3
 
 Once the RAW tables were created, the CSV files were loaded from S3 using Snowflake's `COPY INTO` command.
 
@@ -252,8 +238,8 @@ ON_ERROR = 'CONTINUE';
 The same ingestion process was executed for:
 
 ```text
-📌 ASSIGNMENTS_RAW
-📌 TIMECARDS_RAW
+ASSIGNMENTS_RAW
+TIMECARDS_RAW
 ```
 
 ---
@@ -270,13 +256,13 @@ was implemented to avoid stopping the complete ingestion process due to isolated
 
 Benefits:
 
-✅ Allows successful records to load  
-✅ Prevents pipeline interruption  
-✅ Enables later investigation of problematic rows  
+Allows successful records to load  
+Prevents pipeline interruption  
+Enables later investigation of problematic rows  
 
 ---
 
-# ✅ Result
+# Result
 
 At this stage, the pipeline successfully achieved:
 
@@ -289,7 +275,7 @@ At this stage, the pipeline successfully achieved:
 The next step is the **Transformation Layer**, where raw data is cleaned, standardized, converted into analytical formats, and prepared for Tableau consumption.
 
 ---
-# 🛠️ Data Transformation & Cleaning
+# Data Transformation & Cleaning
 
 After successfully loading the source files into the **RAW layer**, the next step was to transform the data into a clean and analytics-ready format.
 
@@ -299,7 +285,7 @@ This approach preserves the original source data while creating a curated layer 
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 The transformation process focused on:
 
@@ -314,7 +300,7 @@ The transformation process focused on:
 
 ---
 
-# 📂 Projects Transformation
+# Projects Transformation
 
 The `PROJECTS_RAW` table was transformed into the final `PROJECTS` table.
 
@@ -353,7 +339,7 @@ This allows Snowflake to perform aggregations, calculations and KPI generation w
 
 ---
 
-# 📂 Assignments Transformation
+# Assignments Transformation
 
 The same transformation strategy was applied to the `ASSIGNMENTS_RAW` table.
 
@@ -388,7 +374,7 @@ TRY_TO_DOUBLE(
 
 ---
 
-# 📂 Timecards Transformation
+# Timecards Transformation
 
 The **Timecards** dataset required additional processing because the original file stored dates using **Spanish month abbreviations**, which Snowflake cannot parse directly.
 
@@ -435,11 +421,11 @@ This process guarantees that all dates are stored as native Snowflake `DATE` val
 
 ---
 
-## 📌 Data Quality Rules
+## Data Quality Rules
 
 During the transformation process, several validation rules were implemented to improve data quality.
 
-### ✅ Text Cleaning
+### Text Cleaning
 
 - Remove leading spaces
 - Remove trailing spaces
@@ -452,7 +438,7 @@ TRIM(column_name)
 
 ---
 
-### ✅ Numeric Conversion
+### Numeric Conversion
 
 Numeric fields stored as text were safely converted using:
 
@@ -466,7 +452,7 @@ Using `TRY_TO_DOUBLE()` prevents the transformation from failing when invalid va
 
 ---
 
-### ✅ Currency Standardization
+### Currency Standardization
 
 Currency values contained:
 
@@ -490,7 +476,7 @@ making the values suitable for analytical calculations.
 
 ---
 
-### ✅ Record Validation
+### Record Validation
 
 Only records containing a valid primary identifier were loaded into the curated layer.
 
@@ -502,7 +488,7 @@ This prevents incomplete or empty records from affecting downstream analyses.
 
 ---
 
-## ✅ Curated Layer
+## Curated Layer
 
 After completing all transformations, three production-ready tables were created:
 
@@ -540,7 +526,7 @@ You can access the complete script here:
 
 ---
 
-# 📊 Project Performance Command Center
+# Project Performance Command Center
 
 The **Project Performance Command Center** is an interactive dashboard designed to provide a consolidated view of project profitability, resource allocation, revenue performance, and operational efficiency.
 
@@ -548,16 +534,16 @@ The dashboard is connected directly to **Snowflake**, allowing the visualization
 
 ---
 
-### 🖼️ Dashboard Preview
+### Dashboard Preview
 The final dashboard was developed in Tableau using the curated Snowflake tables as the analytical source.
 
 The dashboard provides insights into:
 
-- 📊 Project performance tracking
-- 👥 Assignment and resource analysis
-- ⏱️ Timecard monitoring
-- 💰 Revenue vs Forecast comparison
-- 📈 Operational KPIs for decision-making
+- Project performance tracking
+- Assignment and resource analysis
+- Timecard monitoring
+- Revenue vs Forecast comparison
+- Operational KPIs for decision-making
   
 <p align="center">
   <img 
@@ -568,7 +554,7 @@ The dashboard provides insights into:
 </p>
 ---
 
-## 🎯 Dashboard Objectives
+## Dashboard Objectives
 
 The dashboard was created to help stakeholders quickly answer questions such as:
 
@@ -584,7 +570,7 @@ Instead of evaluating revenue and effort independently, the dashboard combines b
 
 ---
 
-## 🔎 Interactive Filters
+## Interactive Filters
 
 The dashboard includes filters that allow users to explore the portfolio from different perspectives:
 
@@ -596,7 +582,7 @@ All dashboard components respond to these filters, enabling users to move from a
 
 ---
 
-## 🚦 Project Status Classification
+## Project Status Classification
 
 A calculated field was created to classify each project according to its actual revenue compared with its forecasted revenue.
 
@@ -622,7 +608,7 @@ The status distribution is also summarized visually, making it easier to underst
 
 ---
 
-## 📌 Key Performance Indicators
+## Key Performance Indicators
 
 The top section of the dashboard contains KPI cards that summarize the most relevant portfolio metrics:
 
@@ -637,7 +623,7 @@ Conditional indicators are used to communicate performance direction. Positive c
 
 ---
 
-## 💰 Actual vs. Forecasted Revenue
+## Actual vs. Forecasted Revenue
 
 The **Actual vs. Forecasted Revenue** chart compares the revenue generated by each project against its expected revenue.
 
@@ -652,7 +638,7 @@ Displaying both values in the same view provides more context than analyzing act
 
 ---
 
-## 📉 Revenue Variance
+## Revenue Variance
 
 The **Difference vs. Forecast** visualization shows the absolute revenue variance for every project.
 
@@ -669,7 +655,7 @@ The diverging layout makes large positive and negative deviations easy to detect
 
 ---
 
-## 🧭 Revenue and Hours Performance Matrix
+## Revenue and Hours Performance Matrix
 
 A performance matrix was created to compare projects using two dimensions:
 
@@ -693,7 +679,7 @@ This makes it possible to identify projects that may appear successful from a re
 
 ---
 
-## ⏱️ Project Hours Distribution
+## Project Hours Distribution
 
 The **Projects by Hour** treemap shows how submitted hours are distributed across the project portfolio.
 
@@ -710,7 +696,7 @@ The treemap format provides a compact view of portfolio composition and makes re
 
 ---
 
-## ⚡ Revenue per Hour
+## Revenue per Hour
 
 The **Revenue per Hour** table evaluates the revenue generated for each submitted hour.
 
@@ -732,7 +718,7 @@ This metric complements the total revenue view. A project may generate a large a
 
 ---
 
-## 📈 Submitted Hours by Week
+## Submitted Hours by Week
 
 The timeline at the bottom of the dashboard displays the evolution of submitted hours over time.
 
@@ -748,7 +734,7 @@ The area chart emphasizes both the weekly values and the overall workload trend,
 
 ---
 
-## 🎨 Visual Design and Conditional Formatting
+## Visual Design and Conditional Formatting
 
 The dashboard follows a consistent visual language intended to reduce interpretation time:
 
@@ -764,7 +750,7 @@ The dashboard also combines several visualization types—KPI cards, bar charts,
 
 ---
 
-## 💡 Main Analytical Value
+## Main Analytical Value
 
 The dashboard goes beyond reporting total revenue. It combines financial performance with operational effort to identify projects that are:
 
@@ -779,7 +765,7 @@ This approach supports more informed decisions related to project prioritization
 
 ---
 
-## 🔌 Data Connection and Publishing Limitations
+## Data Connection and Publishing Limitations
 
 The dashboard uses a **direct connection to Snowflake**. This allows the workbook to query the source data directly, but it also introduces deployment limitations.
 
