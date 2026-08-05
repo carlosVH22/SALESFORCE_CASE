@@ -60,7 +60,7 @@ This approach simulates a real-world analytics environment where raw business da
 
 ---
 
-# 1️⃣ Snowflake Environment Setup
+# Snowflake Environment Setup
 
 A dedicated database and schema were created to organize all project objects and maintain a structured analytical environment.
 
@@ -85,7 +85,7 @@ Creating an isolated database and schema provides:
 
 ---
 
-# 2️⃣ ☁️ Connecting Snowflake with Amazon S3
+# ☁️ Connecting Snowflake with Amazon S3
 
 The original Excel workbook contained three business entities:
 
@@ -188,7 +188,7 @@ Expected files:
 
 ---
 
-# 3️⃣ 🗄️ RAW Data Layer
+# 🗄️ RAW Data Layer
 
 Following ELT best practices, the first Snowflake layer was designed as a **RAW ingestion layer**.
 
@@ -236,7 +236,7 @@ Raw Data First → Transform Later
 
 ---
 
-# 4️⃣ 📥 Loading Data from Amazon S3
+# 📥 Loading Data from Amazon S3
 
 Once the RAW tables were created, the CSV files were loaded from S3 using Snowflake's `COPY INTO` command.
 
@@ -776,11 +776,3 @@ The dashboard could not be published as a fully functional public or hosted vers
 
 For these reasons, the repository includes a static preview of the dashboard rather than an externally accessible live version.
 
----
-
-## 🛠️ Technologies Used
-
-- **Snowflake** — cloud data warehouse and primary data source.
-- **Tableau** — dashboard development, calculated fields, interactive filters, and visual analytics.
-- **SQL** — data retrieval and preparation.
-- **Calculated fields** — project-status classification, revenue variance, variance percentages, and efficiency metrics.
