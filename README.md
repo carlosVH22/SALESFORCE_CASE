@@ -552,6 +552,15 @@ The dashboard provides insights into:
     width="1000"
   />
 </p>
+
+---
+
+## Dashboard File Download
+
+# ⚠️ You can download the file used to create the dashboard
+
+👉 [Download Tableau FINAL DASH SALES twbx](./FINAL DASH SALES.twbx)
+
 ---
 
 ## Dashboard Objectives
