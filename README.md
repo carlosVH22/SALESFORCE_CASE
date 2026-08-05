@@ -523,6 +523,23 @@ The curated layer serves as the trusted data source for Tableau, enabling reliab
 
 ---
 
+## ⚠️ SQL Implementation
+
+If you want to explore the complete Snowflake implementation, you can find the full SQL script used for:
+
+- ☁️ AWS S3 connection
+- ❄️ Snowflake configuration
+- 📥 Data ingestion
+- 🗄️ RAW table creation
+- 🧹 Data cleaning and transformation
+- 📊 Analytical table preparation
+
+You can access the complete script here:
+
+👉 [Download Snowflake ELT Pipeline SQL Script](/salesforce_pipeline.sql)
+
+---
+
 # 📊 Project Performance Command Center
 
 The **Project Performance Command Center** is an interactive dashboard designed to provide a consolidated view of project profitability, resource allocation, revenue performance, and operational efficiency.
