@@ -559,7 +559,7 @@ The dashboard provides insights into:
 
 # ⚠️ You can download the file used to create the dashboard
 
-👉 [Download Tableau FINAL DASH SALES twbx](./FINAL DASH SALES.twbx)
+👉 [Download Tableau FINAL DASH SALES twbx](./FINAL_DASH_SALES.twbx)
 
 ---
 
