@@ -534,7 +534,7 @@ The dashboard is connected directly to **Snowflake**, allowing the visualization
 > Add the dashboard image to the repository and replace the path below if necessary.
 
 ```markdown
-![Project Performance Command Center](images/project_performance_dashboard.png)
+![Project Performance Command Center](images/FINAL DASH REPO.jpg)
 ```
 
 ---
