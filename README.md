@@ -502,7 +502,7 @@ This prevents incomplete or empty records from affecting downstream analyses.
 
 ---
 
-# ✅ Curated Layer
+## ✅ Curated Layer
 
 After completing all transformations, three production-ready tables were created:
 
@@ -521,7 +521,9 @@ These tables contain:
 
 The curated layer serves as the trusted data source for Tableau, enabling reliable KPI calculations, interactive dashboards, and analytical reporting while preserving the original RAW data for traceability and future reprocessing.
 
-## 📊 Project Performance Command Center
+---
+
+# 📊 Project Performance Command Center
 
 The **Project Performance Command Center** is an interactive dashboard designed to provide a consolidated view of project profitability, resource allocation, revenue performance, and operational efficiency.
 
@@ -530,13 +532,23 @@ The dashboard is connected directly to **Snowflake**, allowing the visualization
 ---
 
 ### 🖼️ Dashboard Preview
+The final dashboard was developed in Tableau using the curated Snowflake tables as the analytical source.
 
-> Add the dashboard image to the repository and replace the path below if necessary.
+The dashboard provides insights into:
 
-```markdown
-![Project Performance Command Center](images/FINAL DASH REPO.jpg)
-```
-
+- 📊 Project performance tracking
+- 👥 Assignment and resource analysis
+- ⏱️ Timecard monitoring
+- 💰 Revenue vs Forecast comparison
+- 📈 Operational KPIs for decision-making
+  
+<p align="center">
+  <img 
+    src="dashboard.jpg" 
+    alt="Project Performance Command Center"
+    width="1000"
+  />
+</p>
 ---
 
 ## 🎯 Dashboard Objectives
