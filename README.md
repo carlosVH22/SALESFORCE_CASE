@@ -536,7 +536,7 @@ If you want to explore the complete Snowflake implementation, you can find the f
 
 You can access the complete script here:
 
-👉 [Download Snowflake ELT Pipeline SQL Script](/salesforce_pipeline.sql)
+👉 [Download Snowflake ELT Pipeline SQL Script](salesforce_pipeline.sql)
 
 ---
 
